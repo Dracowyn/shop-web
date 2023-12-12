@@ -82,12 +82,12 @@ axios.defaults.headers = {
 axios.defaults.timeout = 10000;
 
 // get请求
-export function GET(params = {}) {
+export function GET(data = {}) {
 	return new Promise((resolve, reject) => {
 		axios({
 			method: 'get',
-			url: params.url,
-			params,
+			url: data.url,
+			params: data.params,
 			cancelToken: new CancelToken(c => {
 				cancel = c;
 			})
@@ -100,12 +100,12 @@ export function GET(params = {}) {
 }
 
 // post请求
-export function POST(params = {}) {
+export function POST(data = {}) {
 	return new Promise((resolve, reject) => {
 		axios({
 			method: 'post',
-			url: params.url,
-			data: params.data,
+			url: data.url,
+			data: data.params,
 			cancelToken: new CancelToken(c => {
 				cancel = c;
 			})
@@ -118,19 +118,19 @@ export function POST(params = {}) {
 }
 
 // 文件上传请求
-export function UPLOAD(params = {}) {
+export function UPLOAD(data = {}) {
 	return new Promise((resolve, reject) => {
 		// 封装表单对象数据
 		let formData = new FormData();
-		if (JSON.stringify(params.data) !== '{}') {
-			for (let key in params.data) {
-				formData.append(key, params.data[key]);
+		if (JSON.stringify(data.params) !== '{}') {
+			for (let key in data.params) {
+				formData.append(key, data.params[key]);
 			}
 		}
 		axios({
 			method: 'post',
-			url: params.url,
-			data: params.data,
+			url: data.url,
+			data: data.params,
 			headers: {
 				'Content-Type': 'multipart/form-data'
 			},

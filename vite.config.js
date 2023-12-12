@@ -14,15 +14,17 @@ export default defineConfig({
 	},
 	server: {
 		proxy: {
-			'/shop': {
-				target: 'http://localhost:3000',
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/shop/, '')
-			}
+			//设置代理请求 当代理商识别你的请求如果前缀是 /api的话 就会自动转移
+			"/shop": {
+				target: "http://www.shop.com/shop",
+				changeOrigin: true, //跨域
+				//替换掉api前缀 防止多个api地址
+				rewrite: (path) => path.replace(/^\/shop/, ""),
+			},
 		},
 		hmr: {
-			overlay: false
-		}
+			overlay: false,
+		},
 	},
 	plugins: [vue()],
 });
