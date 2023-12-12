@@ -26,7 +26,7 @@
 					</div>
 
 					<div class="container-login100-form-btn p-t-10">
-						<button class="login100-form-btn">注 册</button>
+						<button class="login100-form-btn">登 录</button>
 					</div>
 
 					<div class="text-center w-full p-t-25">
