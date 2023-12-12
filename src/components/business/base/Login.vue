@@ -1,3 +1,70 @@
+<script setup>
+import {getCurrentInstance, ref} from 'vue';
+import {showNotify} from "vant";
+const {proxy} = getCurrentInstance();
+
+// 定义变量
+const mobile = ref('');
+const password = ref('');
+
+// 登录事件
+const onLogin = async () => {
+	if (!mobile.value.trim()) {
+		showNotify({
+			type: 'warning',
+			message: '请输入手机号',
+			duration: 1500
+		})
+		return;
+	}
+	if (!password.value.trim()) {
+		showNotify({
+			type: 'warning',
+			message: '请输入密码',
+			duration: 1500
+		})
+		return;
+	}
+
+	// 验证手机号格式
+	if (!/^1[3456789]\d{9}$/.test(mobile.value)) {
+		showNotify({
+			type: 'warning',
+			message: '手机号格式不正确',
+			duration: 1500
+		})
+		return;
+	}
+
+	let data = {
+		mobile: mobile.value,
+		password: password.value
+	}
+
+	// 发起请求
+	let result = await proxy.$api.login(data);
+
+	if (result.code === 1) {
+		showNotify({
+			type: 'success',
+			message: '登录成功',
+			duration: 1500
+		})
+		// 跳转到首页
+		setTimeout(() => {
+			proxy.$router.push('/business/base/index');
+		}, 1500);
+	} else {
+		showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500
+		})
+	}
+
+}
+</script>
+
 <template>
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/assets/images/img-01.jpg');">
@@ -40,18 +107,7 @@
 		</div>
 	</div>
 </template>
-<script setup>
-import {ref} from 'vue';
 
-// 定义变量
-const mobile = ref('');
-const password = ref('');
-
-// 登录事件
-const onLogin = () => {
-
-}
-</script>
 
 <style>
 @import url('/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css');
