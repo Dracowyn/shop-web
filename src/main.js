@@ -14,17 +14,22 @@ import Api from "@/api/index.js";
 // 引入vue-cookies
 import VueCookies from 'vue3-cookies'
 
+// 引入utils
+import Utils from "@/utils/utils.js";
+
 const app = createApp(App)
 	.use(Router)
 	.use(Vant)
 	.use(Api)
 	.use(VueCookies)
+	.use(Utils)
 	.mount('#app')
 
-app.$router.beforeEach((to, from, next) => {
+app.$router.beforeEach(async (to,from,next) => {
 	let auth = to.meta.auth === true;
 	if (auth === true) {
 		// 获取cookie的登录信息
+		let business = app.$cookies.get('business') ? app.$cookies.get('business') : {};
 
 		// 重定向登录页
 		next('/business/base/login');
