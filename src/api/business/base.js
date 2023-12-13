@@ -18,6 +18,12 @@ const Base = {
 			url: "/business/base/profile",
 			params: data
 		});
+	},
+	check(data) {
+		return POST({
+			url: "/business/base/check",
+			params: data
+		});
 	}
 }
 

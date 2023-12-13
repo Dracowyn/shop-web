@@ -1,14 +1,18 @@
 <script setup>
 import Footer from '../../common/Footer.vue';
+import {getCurrentInstance, ref} from 'vue';
+
+const {proxy} = getCurrentInstance();
+const business = ref(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {});
 </script>
 <template>
 	<div class="myBox">
-		<div class="L"><img src="/assets/images/01.jpg"/></div>
+		<div class="L"><img :src="business.avatar" alt="avatar"/></div>
 		<div class="C">
-			<div class="tit">李莉</div>
-			<div class="sub">lili*********</div>
+			<div class="tit">{{ business.nickname }}</div>
+			<div class="sub">{{ business.mobile }}</div>
 		</div>
-		<div class="R"><img src="/assets/images/go.png"/></div>
+		<div class="R"><img src="/assets/images/go.png" alt="go"/></div>
 	</div>
 	<div class="clear"></div>
 	<div class="allkbox"></div>
