@@ -48,12 +48,12 @@ const onLogin = async () => {
 		showNotify({
 			type: 'success',
 			message: '登录成功',
-			duration: 1500
+			duration: 1500,
+			onClose: () => {
+				proxy.$cookies.set('business', result.data);
+				proxy.$router.push('/business/base/index');
+			}
 		})
-		// 跳转到首页
-		setTimeout(() => {
-			proxy.$router.push('/business/base/index');
-		}, 1500);
 	} else {
 		showNotify({
 			type: 'warning',

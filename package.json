@@ -13,7 +13,8 @@
     "pinia": "^2.1.7",
     "vant": "^4.8.0",
     "vue": "^3.3.10",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.1",

@@ -49,12 +49,11 @@ const onRegister = async () => {
 		showNotify({
 			type: 'success',
 			message: '注册成功',
-			duration: 1500
+			duration: 1500,
+			onClose: () => {
+				proxy.$router.push('/business/base/login');
+			}
 		})
-		// 跳转到登录页
-		setTimeout(() => {
-			proxy.$router.push('/business/base/login');
-		}, 1500);
 	} else {
 		showNotify({
 			type: 'warning',

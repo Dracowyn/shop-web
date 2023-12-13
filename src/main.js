@@ -11,10 +11,14 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import Api from "@/api/index.js";
 
+// 引入vue-cookies
+import VueCookies from 'vue3-cookies'
+
 const app = createApp(App)
 	.use(Router)
 	.use(Vant)
 	.use(Api)
+	.use(VueCookies)
 	.mount('#app')
 
 app.$router.beforeEach((to, from, next) => {
