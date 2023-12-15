@@ -1,16 +1,76 @@
 <script setup>
-import {getCurrentInstance,reactive,ref} from 'vue';
+import {getCurrentInstance, reactive, ref, onMounted} from 'vue';
 
 const {proxy} = getCurrentInstance();
-const list = reactive([]);
+const list = ref([]);
 const selectedAddressId = ref(0);
+
+const business = reactive(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {});
+
+const getData = async () => {
+	let data = {
+		busid: business.id
+	}
+
+	let result = await proxy.$api.getAddressData(data);
+
+	if (result.code === 0) {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500
+		});
+	}
+
+	let addressList = [];
+
+	for (let item of result.data) {
+		addressList.push({
+			id: item.id,
+			name: item.consignee,
+			tel: item.mobile,
+			address: item.region_text + ' ' + item.address,
+			isDefault: item.status === 1
+		});
+
+		if (item.status === 1) {
+			selectedAddressId.value = item.id;
+		}
+	}
+
+	list.value = addressList;
+
+}
+
+onMounted(() => {
+	getData();
+})
+
+const toSelect = async (info) => {
+	let data = {
+		id: info.id,
+		busid: business.id
+	}
+
+	let result = await proxy.$api.AddressSelected(data);
+
+	if (result.code === 1) {
+		await getData();
+	} else {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500
+		});
+	}
+}
 
 const toAdd = () => {
 	proxy.$router.push('/business/address/add');
 }
 
-const toEdit = (id) => {
-	proxy.$router.push({ name: 'AddressEdit', params: { id: id } });
+const toEdit = (info) => {
+	proxy.$router.push({path: '/business/address/edit', query: {id: info.id}});
 }
 
 const toDelete = (id) => {
@@ -53,6 +113,7 @@ const onBack = () => {
 		default-tag-text="默认"
 		@add="toAdd"
 		@edit="toEdit"
+		@select="toSelect"
 		@delete="toDelete"
 	/>
 </template>

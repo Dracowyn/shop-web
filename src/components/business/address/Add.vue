@@ -5,7 +5,7 @@ import {areaList} from "@vant/area-data";
 const {proxy} = getCurrentInstance();
 const business = reactive(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {});
 
-const onSave = async (value) => {
+const onSave = async (info) => {
 	// 组装数据
 	let data = {
 		busid: business.id,
@@ -16,7 +16,7 @@ const onSave = async (value) => {
 		status: info.isDefault === true ? 1 : 0
 	}
 
-	let result = await proxy.$api.address(data);
+	let result = await proxy.$api.AddressAdd(data);
 
 	if (result.code === 1) {
 		proxy.$showNotify({
