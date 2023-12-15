@@ -46,6 +46,34 @@ onMounted(() => {
 
 // 保存收货地址
 const onSave = async (value) => {
+	let data = {
+		busid: business.id,
+		id: id.value,
+		consignee: value.name,
+		mobile: value.tel,
+		code: value.areaCode,
+		address: value.addressDetail,
+		status: value.isDefault === true ? '1' : '0'
+	}
+
+	let result = await proxy.$api.AddressEdit(data);
+
+	if (result.code === 1) {
+		proxy.$showNotify({
+			type: 'success',
+			message: result.msg,
+			duration: 1500,
+			onClose: () => {
+				proxy.$router.go(-1);
+			}
+		});
+	} else {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500
+		});
+	}
 }
 
 // 删除收货地址
