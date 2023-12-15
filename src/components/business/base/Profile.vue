@@ -5,7 +5,6 @@ import {areaList} from '@vant/area-data';
 const {proxy} = getCurrentInstance();
 const business = ref(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {})
 const RegionCode = ref(business.value.district ? business.value.district : (business.value.city ? business.value.city : business.value.province));
-console.log(RegionCode);
 
 const showRegion = ref(false);
 const avatar = ref([

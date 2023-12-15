@@ -8,6 +8,10 @@ const business = ref(proxy.$cookies.get('business') ? proxy.$cookies.get('busine
 const toProfile = () => {
 	proxy.$router.push('/business/base/profile');
 }
+
+const toAddress = () => {
+	proxy.$router.push('/business/address/index');
+}
 </script>
 <template>
 	<div class="myBox">
@@ -27,7 +31,7 @@ const toProfile = () => {
 		<p>邮箱认证</p>
 		<img src="/assets/images/go.png">
 	</div>
-	<div class="myboxcon">
+	<div class="myboxcon" @click="toAddress">
 		<p>我的收货地址</p>
 		<img src="/assets/images/go.png">
 	</div>
