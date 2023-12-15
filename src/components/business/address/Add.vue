@@ -13,7 +13,7 @@ const onSave = async (info) => {
 		mobile: info.tel,
 		code: info.areaCode,
 		address: info.addressDetail,
-		status: info.isDefault === true ? 1 : 0
+		status: info.isDefault === true ? '1' : '0'
 	}
 
 	let result = await proxy.$api.AddressAdd(data);

@@ -30,10 +30,10 @@ const getData = async () => {
 			name: item.consignee,
 			tel: item.mobile,
 			address: item.region_text + ' ' + item.address,
-			isDefault: item.status === 1
+			isDefault: item.status === '1'
 		});
 
-		if (item.status === 1) {
+		if (item.status === '1') {
 			selectedAddressId.value = item.id;
 		}
 	}

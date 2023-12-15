@@ -36,7 +36,7 @@ const getInfo = async () => {
 		tel: address.mobile,
 		areaCode: address.district ? address.district : (address.city ? address.city : address.province),
 		addressDetail: address.address,
-		isDefault: address.status === 1
+		isDefault: address.status === "1"
 	}
 }
 
