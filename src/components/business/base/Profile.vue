@@ -4,6 +4,9 @@ import {areaList} from '@vant/area-data';
 
 const {proxy} = getCurrentInstance();
 const business = ref(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {})
+const RegionCode = ref(business.value.district ? business.value.district : (business.value.city ? business.value.city : business.value.province));
+console.log(RegionCode);
+
 const showRegion = ref(false);
 const avatar = ref([
 	{
@@ -12,12 +15,72 @@ const avatar = ref([
 ]);
 
 // 表单提交
-const onSubmit = (value) => {
-	console.log(value)
+const onSubmit = async (value) => {
+	// 组装数据
+	let data = {
+		busid: business.value.id,
+		nickname: value.nickname.trim(),
+		email: value.email.trim(),
+		gender: value.gender
+	}
+
+	if (value.password.trim()) {
+		data.password = value.password.trim();
+	}
+
+	let avatar = value.avatar[0]?.file;
+
+	if (avatar) {
+		data.avatar = avatar;
+	}
+
+	if (RegionCode.value) {
+		data.code = RegionCode.value;
+	}
+
+	console.log(data);
+
+	let result = await proxy.$api.profile(data);
+
+	if (result.code === 1) {
+		proxy.$showNotify({
+			type: 'success',
+			message: result.msg,
+			duration: 1500,
+			onClose: () => {
+				proxy.$cookies.set('business', result.data);
+				proxy.$router.go(-1);
+			}
+		});
+	} else {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500
+		});
+	}
 }
 
-const onRegionConfirm = () => {
+const onRegionConfirm = (value) => {
+	let [province, city, district] = value.selectedOptions;
+	// 拼接的文本显示
+	let text = '';
+	if (province.text) {
+		text = province.text + '-'
+		business.value.province = province.value
+	}
 
+	if (city.text) {
+		text += city.text + '-'
+		business.value.city = city.value
+	}
+
+	if (district.text) {
+		text += district.text
+		business.value.district = district.value
+	}
+	showRegion.value = false;
+	business.value.region_text = text;
 }
 
 // 返回事件
@@ -98,7 +161,7 @@ const onBack = () => {
 				v-model="business.region_text"
 				is-link
 				readonly
-				name="area"
+				name="region"
 				label="地区选择"
 				placeholder="选择省市区"
 				@click="showRegion = true"
@@ -112,6 +175,8 @@ const onBack = () => {
 					:area-list="areaList"
 					@confirm="onRegionConfirm"
 					@cancel="showRegion = false"
+					v-model="RegionCode"
+					title="选择地区"
 				/>
 			</van-popup>
 
