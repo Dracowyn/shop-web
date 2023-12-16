@@ -12,6 +12,10 @@ const toProfile = () => {
 const toAddress = () => {
 	proxy.$router.push('/business/address/index');
 }
+
+const toEmail = () => {
+	proxy.$router.push('/business/base/email');
+}
 </script>
 <template>
 	<div class="myBox">
@@ -27,7 +31,7 @@ const toAddress = () => {
 		<p>基本资料</p>
 		<img src="/assets/images/go.png" alt="基本资料">
 	</div>
-	<div class="myboxcon">
+	<div class="myboxcon" @click="toEmail">
 		<p>邮箱认证</p>
 		<img src="/assets/images/go.png">
 	</div>
@@ -57,3 +61,7 @@ const toAddress = () => {
 	<div class="clear"></div>
 	<Footer/>
 </template>
+
+<style>
+@import url('/assets/css/style.css');
+</style>
