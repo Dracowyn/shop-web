@@ -122,7 +122,7 @@
 	<Footer/>
 </template>
 <script setup>
-import Footer from './common/Footer.vue';
+import Footer from '../components/common/Footer.vue';
 import {getCurrentInstance, onMounted, ref} from 'vue';
 
 const {proxy} = getCurrentInstance();
@@ -135,7 +135,7 @@ onMounted(() => {
 });
 
 const getHomeData = async () => {
-	let result = await proxy.$api.ControllerIndex();
+	let result = await proxy.$api.HomeIndex();
 
 	if (result.code === 1) {
 		recommendData.value = result.data.recommendData;

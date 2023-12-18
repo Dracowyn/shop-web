@@ -14,7 +14,7 @@ Object.values(ModuleFiles).map(async (mod) => {
 });
 
 // 引入首页组件
-import Home from "@/components/Home.vue"; 
+import Home from "@/views/Home.vue";
 
 // 把首页组件追加集合里
 RouterList.push({

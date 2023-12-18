@@ -1,7 +1,7 @@
 import {POST} from "@/services/request.js";
 
-const Controller = {
-	ControllerIndex(data) {
+const Home = {
+	HomeIndex(data) {
 		return POST({
 			url: "/index/index",
 			params: data
@@ -9,4 +9,4 @@ const Controller = {
 	}
 }
 
-export default Controller;
+export default Home;

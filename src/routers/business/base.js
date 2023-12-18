@@ -2,7 +2,7 @@ const Base = [
 	{
 		path: 'base/index',
 		name: 'BaseIndex',
-		component: () => import('@/components/business/base/Index.vue'),
+		component: () => import('@/views/business/base/Index.vue'),
 		meta: {
 			auth: true
 		}
@@ -10,17 +10,17 @@ const Base = [
 	{
 		path: 'base/register',
 		name: 'BaseRegister',
-		component: () => import('@/components/business/base/Register.vue')
+		component: () => import('@/views/business/base/Register.vue')
 	},
 	{
 		path: 'base/login',
 		name: 'BaseLogin',
-		component: () => import('@/components/business/base/Login.vue')
+		component: () => import('@/views/business/base/Login.vue')
 	},
 	{
 		path: 'base/profile',
 		name: 'BaseProfile',
-		component: () => import('@/components/business/base/Profile.vue'),
+		component: () => import('@/views/business/base/Profile.vue'),
 		meta: {
 			auth: true
 		}
@@ -28,7 +28,7 @@ const Base = [
 	{
 		path: 'base/email',
 		name: 'BaseEmail',
-		component: () => import('@/components/business/base/Email.vue'),
+		component: () => import('@/views/business/base/Email.vue'),
 		meta: {
 			auth: true
 		}

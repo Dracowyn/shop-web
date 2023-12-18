@@ -2,7 +2,7 @@ const Address = [
 	{
 		path:'address/index',
 		name:'AddressIndex',
-		component:()=>import('@/components/business/address/index.vue'),
+		component:()=>import('@/views/business/address/index.vue'),
 		meta: {
 			auth:true
 		}
@@ -10,7 +10,7 @@ const Address = [
 	{
 		path: 'address/add',
 		name: 'AddressAdd',
-		component: () => import('@/components/business/address/add.vue'),
+		component: () => import('@/views/business/address/add.vue'),
 		meta: {
 			auth: true
 		}
@@ -18,7 +18,7 @@ const Address = [
 	{
 		path: 'address/edit',
 		name: 'AddressEdit',
-		component: () => import('@/components/business/address/edit.vue'),
+		component: () => import('@/views/business/address/edit.vue'),
 		meta: {
 			auth: true
 		}

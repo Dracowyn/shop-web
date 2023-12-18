@@ -1,5 +1,5 @@
 <script setup>
-import Footer from '../../common/Footer.vue';
+import Footer from '../../../components/common/Footer.vue';
 import {getCurrentInstance, ref} from 'vue';
 
 const {proxy} = getCurrentInstance();
