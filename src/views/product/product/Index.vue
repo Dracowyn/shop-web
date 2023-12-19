@@ -1,4 +1,5 @@
 <script setup>
+// 商品列表页面
 import {getCurrentInstance, ref, reactive} from "vue";
 
 const {proxy} = getCurrentInstance();
@@ -56,7 +57,7 @@ const onLoad = async () => {
 // 获取数据方法
 const getProductData = async () => {
 	let data = {
-		typeId: typeId.value,
+		typeid: typeId.value,
 		page: page.value,
 		limit: limit.value,
 		flag: flag.value,
