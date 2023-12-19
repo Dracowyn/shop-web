@@ -16,6 +16,10 @@ const toAddress = () => {
 const toEmail = () => {
 	proxy.$router.push('/business/base/email');
 }
+
+const toCollection = () => {
+	proxy.$router.push('/business/collection/index');
+}
 </script>
 <template>
 	<div class="myBox">
@@ -38,6 +42,10 @@ const toEmail = () => {
 	<div class="myboxcon" @click="toAddress">
 		<p>我的收货地址</p>
 		<img src="/assets/images/go.png">
+	</div>
+	<div class="myboxcon" @click="toCollection">
+		<p>我的收藏</p>
+		<img src="/assets/images/go.png" alt="我的收藏">
 	</div>
 	<div class="myboxcon">
 		<p>我的订单</p>
