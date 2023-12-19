@@ -82,7 +82,6 @@ const getProductData = async () => {
 	loading.value = false;
 
 	let resultData = result.data;
-	console.log(resultData)
 
 	list.value = list.value.concat(resultData.list);
 	listCount.value = resultData.count;

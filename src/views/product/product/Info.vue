@@ -35,8 +35,46 @@ const getProductInfo = async () => {
 	info.value = result.data;
 }
 
+// 判断是否收藏商品
+const getStar = () => {
+	if (info.value.is_star) {
+		proxy.$showConfirmDialog({
+			title: '提示',
+			message: '确定取消收藏该商品吗？',
+		}).then(onStar);
+	} else {
+		onStar();
+	}
+}
+
+// 收藏商品
+const onStar = async () => {
+	let data = {
+		proid: proId.value,
+		busid: business.id,
+	}
+
+	let result = await proxy.$api.ProductCollection(data);
+
+	if (result.code === 0) {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500,
+		});
+
+		return;
+	}
+	info.value.is_star = result.data.is_star;
+	proxy.$showNotify({
+		type: 'success',
+		message: result.msg,
+		duration: 1500,
+	});
+}
+
 const onBack = () => {
-	proxy.$route.go(-1);
+	proxy.$router.go(-1);
 }
 
 </script>
@@ -69,8 +107,8 @@ const onBack = () => {
 	<van-action-bar>
 		<van-action-bar-icon icon="chat-o" text="客服" color="#ee0a24"/>
 		<van-action-bar-icon icon="cart-o" text="购物车"/>
-		<van-action-bar-icon icon="star" text="已收藏" color="#ff5000" v-if="info.is_star === 1"/>
-		<van-action-bar-icon icon="star" text="收藏" v-if="info.is_star === 0"/>
+		<van-action-bar-icon icon="star" text="已收藏" color="#ff5000" v-if="info.is_star === 1" @click="getStar"/>
+		<van-action-bar-icon icon="star" text="收藏" v-if="info.is_star === 0" @click="getStar"/>
 		<van-action-bar-button type="warning" text="加入购物车"/>
 		<van-action-bar-button type="danger" text="立即购买"/>
 	</van-action-bar>
