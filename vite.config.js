@@ -16,7 +16,7 @@ export default defineConfig({
 		proxy: {
 			//设置代理请求 当代理商识别你的请求如果前缀是 /api的话 就会自动转移
 			"/shop": {
-				target: "http://www.shop.com/shop",
+				target: "http://shop.example.com/shop",
 				changeOrigin: true, //跨域
 				//替换掉api前缀 防止多个api地址
 				rewrite: (path) => path.replace(/^\/shop/, ""),

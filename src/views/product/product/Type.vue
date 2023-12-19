@@ -4,19 +4,33 @@ import Footer from "@/components/common/Footer.vue";
 
 const {proxy} = getCurrentInstance();
 
-const active = ref(15);
+const activeIndex = ref(15);
 
-const typeData = ref();
-const getTypeData = async () => {
-	let result = await proxy.$api.TypeIndex();
-	if (result.code === 1) {
-		typeData.value = result.data;
-	}
-}
+const typeList = ref([]);
+const typeId = ref(0);
 
 onMounted(() => {
 	getTypeData();
 });
+
+const getTypeData = async () => {
+	let result = await proxy.$api.TypeIndex();
+	let TypeData = [];
+	for (let item of result.data) {
+		TypeData.push({
+			text: item.name,
+			id: item.id
+		});
+	}
+	typeList.value = TypeData;
+
+}
+
+//
+const onClickNav = (index) => {
+	activeIndex.value = index;
+	typeId.value = typeList.value[index].id;
+}
 
 
 </script>
@@ -29,6 +43,13 @@ onMounted(() => {
 		/>
 	</van-sticky>
 	<div style="height: 46px;"></div>
+	<van-tree-select
+		v-model:main-active-index="activeIndex"
+		height="86vh"
+		:items="typeList"
+		@click-nav="onClickNav"
+	>
+	</van-tree-select>
 	<Footer/>
 </template>
 
