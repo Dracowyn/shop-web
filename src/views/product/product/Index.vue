@@ -48,7 +48,9 @@ const onLoad = async () => {
 			refreshing.value = false
 		}, 1500);
 	}
-	await getProductData();
+	setTimeout(() => {
+		getProductData();
+	}, 1500);
 }
 
 // 获取数据方法
@@ -67,8 +69,8 @@ const getProductData = async () => {
 		proxy.$showNotify({
 			type: 'warning',
 			message: result.msg,
-			duration:1500,
-			onClose:()=> {
+			duration: 1500,
+			onClose: () => {
 				finished.value = true;
 			}
 		});
