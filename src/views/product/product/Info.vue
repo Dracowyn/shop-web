@@ -144,7 +144,7 @@ const onBack = () => {
 
 	<van-action-bar>
 		<van-action-bar-icon icon="chat-o" text="客服" color="#ee0a24"/>
-		<van-action-bar-icon icon="cart-o" text="购物车"/>
+		<van-action-bar-icon icon="cart-o" text="购物车" to="/product/cart/index"/>
 		<van-action-bar-icon :icon="info.is_star ? 'star' : 'star-o'" :text="info.is_star ? '已收藏' : '收藏'"
 							 color="#ff5000" @click="getStar"/>
 		<van-action-bar-button type="warning" text="加入购物车" @click="CartAdd"/>
