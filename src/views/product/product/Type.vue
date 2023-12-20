@@ -122,7 +122,7 @@ const onClickNav = (index) => {
 				>
 					<div class="aui-flex-links">
 						<router-link
-							:to="{ path: '/product/product/info', query: { id: item.id } }"
+							:to="{ path: '/product/product/info', query: { proid: item.id } }"
 							class="aui-flex-links-item"
 							v-for="item in list"
 							:key="item.id"
