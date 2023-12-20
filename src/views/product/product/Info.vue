@@ -73,6 +73,44 @@ const onStar = async () => {
 	});
 }
 
+// 加入购物车
+const CartAdd = async () => {
+	if (!business || JSON.stringify(business) === '{}') {
+		proxy.$showNotify({
+			type: 'warning',
+			message: '请先登录',
+			duration: 1500,
+			onClose: () => {
+				proxy.$router.push('/business/login');
+			}
+		});
+		return;
+	}
+
+	let data = {
+		proid: proId.value,
+		busid: business.id,
+	}
+
+	let result = await proxy.$api.CartAdd(data);
+
+	if (result.code === 1) {
+		proxy.$showConfirmDialog({
+			title: result.msg,
+			message: '加入购物车成功，是否前往购物车？',
+		}).then(() => {
+			proxy.$router.push('/business/cart/index?action=cart');
+		}).catch(() => {
+		});
+	} else {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500,
+		});
+	}
+}
+
 const onBack = () => {
 	proxy.$router.go(-1);
 }
@@ -107,9 +145,9 @@ const onBack = () => {
 	<van-action-bar>
 		<van-action-bar-icon icon="chat-o" text="客服" color="#ee0a24"/>
 		<van-action-bar-icon icon="cart-o" text="购物车"/>
-		<van-action-bar-icon icon="star" text="已收藏" color="#ff5000" v-if="info.is_star === 1" @click="getStar"/>
-		<van-action-bar-icon icon="star" text="收藏" v-if="info.is_star === 0" @click="getStar"/>
-		<van-action-bar-button type="warning" text="加入购物车"/>
+		<van-action-bar-icon :icon="info.is_star ? 'star' : 'star-o'" :text="info.is_star ? '已收藏' : '收藏'"
+							 color="#ff5000" @click="getStar"/>
+		<van-action-bar-button type="warning" text="加入购物车" @click="CartAdd"/>
 		<van-action-bar-button type="danger" text="立即购买"/>
 	</van-action-bar>
 </template>
