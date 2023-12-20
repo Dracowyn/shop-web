@@ -101,7 +101,20 @@ const onSubmit = () => {
 }
 
 // 更改商品数量
-const onChange = (id, pronum) => {
+const onChange = (id, nums) => {
+	let data = {
+		proid: id,
+		nums: nums,
+		busid: business.id,
+	}
+	proxy.$api.CartNumUpdate(data);
+
+	// 更新商品价格
+	for (let item of list.value) {
+		if (item.id === id) {
+			item.total = (item.price * nums).toFixed(2);
+		}
+	}
 
 }
 
@@ -154,7 +167,7 @@ const onBack = () => {
 								v-model="item.nums"
 								:min="1"
 								:max="item.product.stock"
-								@change="onChange(item.id,item.nums)"
+								@change="onChange(item.product.id,item.nums)"
 								theme="round"
 								button-size="22"
 								disable-input

@@ -12,6 +12,18 @@ const Cart = {
 			url: '/product/cart/index',
 			params: data
 		});
+	},
+	CartNumUpdate(data = {}) {
+		return POST({
+			url: '/product/cart/update',
+			params: data
+		});
+	},
+	CartDelete(data = {}) {
+		return POST({
+			url: '/product/cart/delete',
+			params: data
+		});
 	}
 }
 
