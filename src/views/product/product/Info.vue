@@ -136,7 +136,7 @@ const onBack = () => {
 
 	<div class="detailbox">
 		<h4>{{ info.name }}</h4>
-		<div class="price"><em>￥</em>{{ info.price }}<font>库存：{{ info.stock }} 件</font></div>
+		<div class="price"><em>￥</em>{{ info.price }}库存：{{ info.stock }} 件</div>
 	</div>
 
 	<div class="detailbox_2" v-html="info.content">
