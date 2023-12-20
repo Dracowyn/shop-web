@@ -1,5 +1,5 @@
 <script setup>
-import {getCurrentInstance, ref, reactive, onMounted} from 'vue';
+import {getCurrentInstance, ref, reactive, onMounted, computed} from 'vue';
 import Footer from "@/components/common/Footer.vue";
 
 const {proxy} = getCurrentInstance();
@@ -22,7 +22,17 @@ const checked = ref(false);
 const checkboxGroup = ref(null);
 
 // 总价
-const totalPrice = ref(0);
+const totalPrice = computed(() => {
+	let total = 0;
+	if (list.value.length > 0) {
+		for (let item of list.value) {
+			if (checkedArr.value.includes(item.id)) {
+				total += parseFloat(item.total);
+			}
+		}
+	}
+	return total * 100;
+})
 
 // 下拉刷新
 const onRefresh = () => {
@@ -141,10 +151,10 @@ const onBack = () => {
 						<!--商品数量-->
 						<template #num>
 							<van-stepper
-								v-model="item.pronum"
+								v-model="item.nums"
 								:min="1"
 								:max="item.product.stock"
-								@change="onChange(item.id,item.pronum)"
+								@change="onChange(item.id,item.nums)"
 								theme="round"
 								button-size="22"
 								disable-input
