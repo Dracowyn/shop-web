@@ -27,6 +27,15 @@ const getCartData = async () => {
 
 	if (result.code === 1) {
 		cartList.value = result.data;
+	} else {
+		proxy.$showNotify({
+			type: 'warning',
+			message: result.msg,
+			duration: 1500,
+			onClose: () => {
+				proxy.$router.back();
+			}
+		})
 	}
 }
 
@@ -42,7 +51,7 @@ const getAddressDefault = async () => {
 	}
 }
 
-const total = computed(()=> {
+const total = computed(() => {
 	let total = 0;
 	if (cartList.value.length > 0) {
 		for (let item of cartList.value) {
@@ -56,11 +65,42 @@ const toAddress = () => {
 	proxy.$router.push('/business/address/index');
 }
 
-const onSubmit = async () => {
+const onSubmit = () => {
+	proxy.$showConfirmDialog({
+		title: '提示',
+		message: '确定提交订单吗？',
+	}).then(async (res) => {
+		let data = {
+			busid: business.id,
+			cartids: cartIds.value,
+			addressid: addressInfo.value.id,
+			content: content.value,
+		}
 
+		let result = await proxy.$api.OrderCreate(data);
+
+		if (result.code === 1) {
+			proxy.$showNotify({
+				type: 'success',
+				message: result.msg,
+				duration: 1500,
+				onClose: () => {
+					proxy.$router.push('/business/order/index')
+				}
+			})
+		} else {
+			proxy.$showNotify({
+				type: 'warning',
+				message: result.msg,
+				duration: 1500,
+			});
+		}
+	}).catch(() => {
+	});
 }
 
 const onBack = () => {
+	proxy.$cookies.remove('address');
 	proxy.$router.back();
 }
 
