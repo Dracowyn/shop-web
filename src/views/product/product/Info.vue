@@ -99,7 +99,7 @@ const CartAdd = async () => {
 			title: result.msg,
 			message: '加入购物车成功，是否前往购物车？',
 		}).then(() => {
-			proxy.$router.push('/business/cart/index?action=cart');
+			proxy.$router.push('/product/cart/index?action=cart');
 		}).catch(() => {
 		});
 	} else {
