@@ -1,5 +1,5 @@
 <script setup>
-import {getCurrentInstance, ref, reactive, onMounted, computed} from 'vue';
+import {getCurrentInstance, ref, reactive, computed} from 'vue';
 import Footer from "@/components/common/Footer.vue";
 
 const {proxy} = getCurrentInstance();
@@ -141,7 +141,7 @@ const onBack = () => {
 		<van-nav-bar title="购物车" v-else/>
 	</van-sticky>
 
-	<van-pull-refresh v-model="refreshing" @refresh="onMounted">
+	<van-pull-refresh v-model="refreshing" @refresh="onRefresh">
 		<van-list
 			v-model="loading"
 			:finished="finished"
