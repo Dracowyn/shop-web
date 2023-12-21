@@ -130,7 +130,7 @@ const onBack = () => {
 			finished-text="没有更多了"
 			@load="onLoad"
 		>
-			<div v-for="item in list" :key="item.id">
+			<van-swipe-cell v-for="item in list" :key="item.id">
 				<van-card
 					:price="item.product.price"
 					:desc="item.product.content_text"
@@ -138,14 +138,12 @@ const onBack = () => {
 					:thumb="item.product.thumb_cdn"
 					:thumb-link="'/product/product/info?proid='+item.product.id"
 				>
-					<template #footer>
-						<van-button size="mini" @click="onStar(item.product.id)">{{
-								item.is_star ? '收藏' : '取消收藏'
-							}}
-						</van-button>
-					</template>
 				</van-card>
-			</div>
+				<template #right>
+					<van-button square text="删除" type="danger" class="delete-button"
+								@click="onStar(item.product.id)"/>
+				</template>
+			</van-swipe-cell>
 		</van-list>
 	</van-pull-refresh>
 
