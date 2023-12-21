@@ -90,6 +90,7 @@ const onSubmit = () => {
 				message: result.msg,
 				duration: 1500,
 				onClose: () => {
+					proxy.$cookies.remove('address');
 					proxy.$router.push('/business/order/index')
 				}
 			})
