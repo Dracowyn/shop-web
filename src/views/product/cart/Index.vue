@@ -109,13 +109,49 @@ const onChange = (id, nums) => {
 	}
 	proxy.$api.CartNumUpdate(data);
 
-	// 更新商品价格
+	// 在刷新之前价格都需要更新
 	for (let item of list.value) {
-		if (item.id === id) {
-			item.total = (item.price * nums).toFixed(2);
-		}
+		item.total = (item.price * item.nums).toFixed(2);
 	}
 
+}
+
+// 删除购物车商品
+const onDelete = (proId) => {
+	proxy.$showConfirmDialog({
+		title: '提示',
+		message: '确定删除该商品吗？',
+	}).then(async () => {
+		let data = {
+			busid: business.id,
+			proid: proId,
+		}
+
+		let result = await proxy.$api.CartDelete(data);
+
+		if (result.code === 0) {
+			proxy.$showNotify({
+				type: 'warning',
+				message: result.msg,
+				duration: 1500,
+			});
+			return;
+		} else {
+			proxy.$showNotify({
+				type: 'success',
+				message: result.msg,
+				duration: 1500,
+			});
+		}
+
+		// 删除成功后，需要更新购物车列表
+		list.value = [];
+		page.value = 1;
+		loading.value = true;
+		refreshing.value = true;
+		await onLoad();
+	}).catch(() => {
+	});
 }
 
 // 选择
@@ -179,7 +215,7 @@ const onBack = () => {
 						</template>
 					</van-card>
 					<template #right>
-						<van-button square text="删除" type="danger" class="delete-button"/>
+						<van-button square text="删除" type="danger" class="delete-button" @click="onDelete(item.product.id)"/>
 					</template>
 				</van-swipe-cell>
 			</van-checkbox-group>

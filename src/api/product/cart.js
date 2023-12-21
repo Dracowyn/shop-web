@@ -21,7 +21,7 @@ const Cart = {
 	},
 	CartDelete(data = {}) {
 		return POST({
-			url: '/product/cart/delete',
+			url: '/product/cart/del',
 			params: data
 		});
 	}
