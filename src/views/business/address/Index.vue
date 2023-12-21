@@ -7,6 +7,9 @@ const selectedAddressId = ref(0);
 
 const business = reactive(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {});
 
+const action = ref(proxy.$route.query.action ? proxy.$route.query.action : '');
+const addressId = ref(proxy.$cookies.get('address') ? proxy.$cookies.get('address').id : selectedAddressId);
+
 const getData = async () => {
 	let data = {
 		busid: business.id
@@ -93,6 +96,18 @@ const toDelete = (id) => {
 	});
 }
 
+const onSelected = (info) => {
+	let data = {
+		id: info.id,
+		mobile: info.tel,
+		consignee: info.name
+	}
+
+	proxy.$cookies.set('address', data);
+
+	proxy.$router.back();
+}
+
 const onBack = () => {
 	proxy.$router.go(-1);
 }
@@ -107,6 +122,17 @@ const onBack = () => {
 			@click-left="onBack"
 		/>
 	</van-sticky>
+	<!--从订单确认页面跳转过来的-->
+	<van-address-list
+		v-model="addressId"
+		:list="list"
+		default-tag-text="默认"
+		@add="toAdd"
+		@edit="toEdit"
+		@select="onSelected"
+		@delete="toDelete"
+		v-if="action === 'order'"
+	/>
 	<van-address-list
 		v-model="selectedAddressId"
 		:list="list"
@@ -115,5 +141,6 @@ const onBack = () => {
 		@edit="toEdit"
 		@select="toSelect"
 		@delete="toDelete"
+		v-else
 	/>
 </template>

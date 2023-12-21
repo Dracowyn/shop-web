@@ -62,7 +62,12 @@ const total = computed(() => {
 })
 
 const toAddress = () => {
-	proxy.$router.push('/business/address/index');
+	proxy.$router.push({
+		path: '/business/address/index',
+		query: {
+			action: 'order'
+		}
+	});
 }
 
 const onSubmit = () => {
