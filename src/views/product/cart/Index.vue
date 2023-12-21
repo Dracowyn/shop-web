@@ -97,7 +97,20 @@ const getCartData = async () => {
 
 // 购物车的商品到商品结算
 const onSubmit = () => {
-
+	if (checkedArr.value.length <= 0) {
+		proxy.$showNotify({
+			type: 'warning',
+			message: '请选择商品',
+			duration: 1500,
+		});
+		return;
+	}
+	proxy.$router.push({
+		path: '/product/cart/confirm',
+		query: {
+			cartids: checkedArr.value.join(',')
+		}
+	});
 }
 
 // 更改商品数量
@@ -215,7 +228,8 @@ const onBack = () => {
 						</template>
 					</van-card>
 					<template #right>
-						<van-button square text="删除" type="danger" class="delete-button" @click="onDelete(item.product.id)"/>
+						<van-button square text="删除" type="danger" class="delete-button"
+									@click="onDelete(item.product.id)"/>
 					</template>
 				</van-swipe-cell>
 			</van-checkbox-group>

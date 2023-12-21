@@ -24,7 +24,19 @@ const Cart = {
 			url: '/product/cart/del',
 			params: data
 		});
-	}
+	},
+	CartInfo(data = {}) {
+		return POST({
+			url: '/product/cart/info',
+			params: data
+		});
+	},
+	AddressDefault(data = {}) {
+		return POST({
+			url: '/business/address/default',
+			params: data
+		});
+	},
 }
 
 export default Cart;
