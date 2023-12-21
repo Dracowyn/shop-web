@@ -20,6 +20,19 @@ const toEmail = () => {
 const toCollection = () => {
 	proxy.$router.push('/business/collection/index');
 }
+
+// 注销登录
+const toLogout = () => {
+	proxy.$showConfirmDialog({
+		title: '注销登录',
+		message: '确定要注销登录吗？',
+	}).then(() => {
+		proxy.$cookies.remove('business');
+		proxy.$router.push('/business/base/login');
+	}).catch(() => {
+
+	});
+}
 </script>
 <template>
 	<div class="myBox">
@@ -37,11 +50,11 @@ const toCollection = () => {
 	</div>
 	<div class="myboxcon" @click="toEmail">
 		<p>邮箱认证</p>
-		<img src="/assets/images/go.png">
+		<img src="/assets/images/go.png" alt="邮箱认证">
 	</div>
 	<div class="myboxcon" @click="toAddress">
 		<p>我的收货地址</p>
-		<img src="/assets/images/go.png">
+		<img src="/assets/images/go.png" alt="我的收货地址">
 	</div>
 	<div class="myboxcon" @click="toCollection">
 		<p>我的收藏</p>
@@ -49,19 +62,19 @@ const toCollection = () => {
 	</div>
 	<div class="myboxcon">
 		<p>我的订单</p>
-		<img src="/assets/images/go.png">
+		<img src="/assets/images/go.png" alt="我的订单">
 	</div>
 	<div class="myboxcon">
 		<p>消费记录</p>
-		<img src="/assets/images/go.png">
+		<img src="/assets/images/go.png" alt="消费记录">
 	</div>
 	<div class="myboxcon">
 		<p>充值记录</p>
-		<img src="/assets/images/go.png">
+		<img src="/assets/images/go.png" alt="充值记录">
 	</div>
-	<div class="myboxcon">
+	<div class="myboxcon" @click="toLogout">
 		<p>注销</p>
-		<img src="/assets/images/go.png">
+		<img src="/assets/images/go.png" alt="注销登录">
 	</div>
 
 	<div class="clear"></div>
