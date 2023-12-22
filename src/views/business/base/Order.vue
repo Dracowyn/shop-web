@@ -176,14 +176,14 @@ const onBack = () => {
 									text="订单详情"
 								/>
 								<van-button
-									v-if="item.status === 0"
+									v-if="item.status === '0'"
 									size="mini"
 									type="success"
 									@click="toPay(item.id)"
 									text="确认支付"
 								/>
 								<van-button
-									v-if="item.status === 3"
+									v-if="item.status === '3'"
 									size="mini"
 									type="success"
 									@click="toRate(item.id)"
@@ -197,21 +197,21 @@ const onBack = () => {
 									text="物流信息"
 								/>
 								<van-button
-									v-if="item.status === 2"
+									v-if="item.status === '2'"
 									size="mini"
 									type="success"
 									@click="toConfirmReceipt(item.id)"
 									text="确认收货"
 								/>
 								<van-button
-									v-if="item.status === 4"
+									v-if="item.status === '4'"
 									size="mini"
 									type="success"
 									@click="toEvaluationPage(item.id)"
 									text="评价详情"
 								/>
 								<van-button
-									v-if="item.status > 0 && item.status !== 4"
+									v-if="item.status > 0 && item.status !== '4'"
 									size="mini"
 									type="danger"
 									@click="toRejected(item.id)"
