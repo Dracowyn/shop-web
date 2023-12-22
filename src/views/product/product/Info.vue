@@ -111,6 +111,29 @@ const CartAdd = async () => {
 	}
 }
 
+// 立即购买
+const BuyNow = () => {
+	if (!business || JSON.stringify(business) === '{}') {
+		proxy.$showNotify({
+			type: 'warning',
+			message: '请先登录',
+			duration: 1500,
+			onClose: () => {
+				proxy.$router.push('/business/login');
+			}
+		});
+		return;
+	}
+
+	proxy.$router.push({
+		path: '/product/cart/confirm',
+		query: {
+			proid: proId.value,
+			action: 'buy'
+		}
+	});
+}
+
 const onBack = () => {
 	proxy.$router.go(-1);
 }
@@ -147,8 +170,8 @@ const onBack = () => {
 		<van-action-bar-icon icon="cart-o" text="购物车" to="/product/cart/index"/>
 		<van-action-bar-icon :icon="info.is_star ? 'star' : 'star-o'" :text="info.is_star ? '已收藏' : '收藏'"
 							 color="#ff5000" @click="getStar"/>
-		<van-action-bar-button type="warning" text="加入购物车" @click="CartAdd"/>
-		<van-action-bar-button type="danger" text="立即购买"/>
+		<van-action-bar-button type="warning" text="加入购物车" @click="CartAdd" :disabled="info.stock <= 0"/>
+		<van-action-bar-button type="danger" text="立即购买" @click="BuyNow" :disabled="info.stock <= 0"/>
 	</van-action-bar>
 </template>
 

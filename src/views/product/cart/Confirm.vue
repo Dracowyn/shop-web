@@ -5,14 +5,21 @@ const {proxy} = getCurrentInstance();
 const business = reactive(proxy.$cookies.get('business') ? proxy.$cookies.get('business') : {});
 
 const cartIds = ref(proxy.$route.query.cartids ? proxy.$route.query.cartids : 0);
+const proId = ref(proxy.$route.query.proid ? proxy.$route.query.proid : 0);
+let action = proxy.$route.query.action ? proxy.$route.query.action : '';
+
 const addressInfo = ref(proxy.$cookies.get('address') ? proxy.$cookies.get('address') : {});
 const cartList = ref([]);
 const content = ref();
 
 onMounted(() => {
-	getCartData();
 	if (JSON.stringify(addressInfo.value) === '{}') {
 		getAddressDefault();
+	}
+	if (action === 'buy') {
+		getProductData();
+	} else {
+		getCartData();
 	}
 })
 
@@ -36,6 +43,26 @@ const getCartData = async () => {
 				proxy.$router.back();
 			}
 		})
+	}
+}
+
+// 获取单个商品数据
+const getProductData = async () => {
+	let data = {
+		proid: proId.value,
+		busid: business.id,
+	}
+
+	let result = await proxy.$api.ProductInfo(data);
+
+	if (result.code === 1) {
+		cartList.value = [{
+			id: result.data.id,
+			nums: 1,
+			price: result.data.price,
+			total: result.data.price,
+			product: result.data,
+		}];
 	}
 }
 
@@ -74,32 +101,45 @@ const onSubmit = () => {
 	proxy.$showConfirmDialog({
 		title: '提示',
 		message: '确定提交订单吗？',
-	}).then(async (res) => {
-		let data = {
-			busid: business.id,
-			cartids: cartIds.value,
-			addressid: addressInfo.value.id,
-			content: content.value,
-		}
-
-		let result = await proxy.$api.OrderCreate(data);
-
-		if (result.code === 1) {
-			proxy.$showNotify({
-				type: 'success',
-				message: result.msg,
-				duration: 1500,
-				onClose: () => {
-					proxy.$cookies.remove('address');
-					proxy.$router.push('/business/order/index')
-				}
-			})
+	}).then(() => {
+		if (action === 'buy') {
+			let data = {
+				proid: proId.value,
+				busid: business.id,
+				addressid: addressInfo.value.id,
+				content: content.value,
+				nums: 1,
+			}
+			submitOrder(data);
 		} else {
-			proxy.$showNotify({
-				type: 'warning',
-				message: result.msg,
-				duration: 1500,
-			});
+			let data = {
+				busid: business.id,
+				cartids: cartIds.value,
+				addressid: addressInfo.value.id,
+				content: content.value,
+			}
+			submitOrder(data);
+		}
+		async function submitOrder(data) {
+			let result = await proxy.$api.OrderCreate(data);
+
+			if (result.code === 1) {
+				proxy.$showNotify({
+					type: 'success',
+					message: result.msg,
+					duration: 1500,
+					onClose: () => {
+						proxy.$cookies.remove('address');
+						proxy.$router.push('/business/order/index')
+					}
+				})
+			} else {
+				proxy.$showNotify({
+					type: 'warning',
+					message: result.msg,
+					duration: 1500,
+				});
+			}
 		}
 	}).catch(() => {
 	});
