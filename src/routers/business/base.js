@@ -34,13 +34,21 @@ const Base = [
 		}
 	},
 	{
+		path: 'base/collection',
+		name: 'baseCollection',
+		component: () => import('@/views/business/base/Collection.vue'),
+		meta: {
+			auth: true
+		}
+	},
+	{
 		path: 'base/order',
 		name: 'BaseOrder',
 		component: () => import('@/views/business/base/Order.vue'),
 		meta: {
 			auth: true
 		}
-	}
+	},
 ];
 
 export default Base;
