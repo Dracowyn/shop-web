@@ -130,7 +130,7 @@ const onSubmit = () => {
 					duration: 1500,
 					onClose: () => {
 						proxy.$cookies.remove('address');
-						proxy.$router.push('/business/order/index')
+						proxy.$router.push('/business/base/order')
 					}
 				})
 			} else {
