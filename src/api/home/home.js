@@ -6,6 +6,18 @@ const Home = {
 			url: "/index/index",
 			params: data
 		});
+	},
+	HomeNews(data) {
+		return POST({
+			url: "/index/new",
+			params: data
+		});
+	},
+	HomeHot(data) {
+		return POST({
+			url: "/index/hot",
+			params: data
+		});
 	}
 }
 

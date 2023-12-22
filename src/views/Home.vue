@@ -1,3 +1,47 @@
+<script setup>
+import Footer from '../components/common/Footer.vue';
+import {getCurrentInstance, onMounted, ref} from 'vue';
+
+const {proxy} = getCurrentInstance();
+const recommendData = ref([]);
+const typeData = ref([]);
+const newData = ref([]);
+const hotData = ref([]);
+
+
+onMounted(() => {
+	getHomeData();
+	getNewData();
+	getHotData();
+});
+
+const getHomeData = async () => {
+	let result = await proxy.$api.HomeIndex();
+
+	if (result.code === 1) {
+		recommendData.value = result.data.recommendData;
+		typeData.value = result.data.typeData;
+	}
+}
+
+const getNewData = async () => {
+	let result = await proxy.$api.HomeNews();
+
+	if (result.code === 1) {
+		newData.value = result.data;
+	}
+}
+
+const getHotData = async () => {
+	let result = await proxy.$api.HomeHot();
+
+	if (result.code === 1) {
+		hotData.value = result.data;
+	}
+}
+
+</script>
+
 <template>
 	<div class="aui-m-slider">
 		<van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -27,36 +71,12 @@
 	</div>
 	<div class="clear"></div>
 	<ul class="proul">
-		<li>
+		<li v-for="item in newData" :key="item.id">
 			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/4.jpg">
-					<p><span>￥</span>288</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/5.jpg">
-					<p><span>￥</span>198</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/6.jpg">
-					<p><span>￥</span>2368</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/7.jpg">
-					<p><span>￥</span>688</p>
-				</a>
+				<router-link :to="{path:'/product/product/info',query:{proid:item.id}}">
+					<img :src="item.thumb_cdn">
+					<p><span>￥</span>{{ item.price }}</p>
+				</router-link>
 			</div>
 		</li>
 	</ul>
@@ -67,52 +87,12 @@
 	</div>
 	<div class="clear"></div>
 	<ul class="proul_2">
-		<li>
+		<li v-for="item in hotData" :key="item.id">
 			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/12.jpg">
-					<p><span>￥</span>288</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/13.jpg">
-					<p><span>￥</span>198</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/14.jpg">
-					<p><span>￥</span>2368</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/14.jpg">
-					<p><span>￥</span>688</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/12.jpg">
-					<p><span>￥</span>688</p>
-				</a>
-			</div>
-		</li>
-		<li>
-			<div class="con">
-				<a href="detail.html">
-					<img src="/assets/images/13.jpg">
-					<p><span>￥</span>688</p>
-				</a>
+				<router-link :to="{path:'/product/product/info',query:{proid:item.id}}">
+					<img :src="item.thumb_cdn">
+					<p><span>￥</span>{{ item.price }}</p>
+				</router-link>
 			</div>
 		</li>
 	</ul>
@@ -121,29 +101,6 @@
 	<div class="clear"></div>
 	<Footer/>
 </template>
-<script setup>
-import Footer from '../components/common/Footer.vue';
-import {getCurrentInstance, onMounted, ref} from 'vue';
-
-const {proxy} = getCurrentInstance();
-const recommendData = ref([]);
-const typeData = ref([]);
-
-
-onMounted(() => {
-	getHomeData();
-});
-
-const getHomeData = async () => {
-	let result = await proxy.$api.HomeIndex();
-
-	if (result.code === 1) {
-		recommendData.value = result.data.recommendData;
-		typeData.value = result.data.typeData;
-	}
-}
-
-</script>
 
 <style>
 @import url('/assets/css/banner.css');
