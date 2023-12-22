@@ -154,12 +154,12 @@ const onBack = () => {
 						</div>
 						<div class="content">
 							<van-card
-								v-for="product in item.product"
+								v-for="product in item.order_product"
 								:key="product.id"
 								:num="product.nums"
 								:price="product.total"
-								:title="product.name"
-								:thumb="product.thumb_cdn"
+								:title="product.product.name"
+								:thumb="product.product.thumb_cdn"
 							>
 								<template #desc>
 									<span>商品单价：￥{{ product.price }}</span>
