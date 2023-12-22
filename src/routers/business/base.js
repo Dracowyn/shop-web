@@ -32,6 +32,14 @@ const Base = [
 		meta: {
 			auth: true
 		}
+	},
+	{
+		path: 'base/order',
+		name: 'BaseOrder',
+		component: () => import('@/views/business/base/Order.vue'),
+		meta: {
+			auth: true
+		}
 	}
 ];
 
