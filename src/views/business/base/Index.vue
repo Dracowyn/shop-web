@@ -18,7 +18,11 @@ const toEmail = () => {
 }
 
 const toCollection = () => {
-	proxy.$router.push('/business/collection/index');
+	proxy.$router.push('/business/base/collection');
+}
+
+const toOrder = () => {
+	proxy.$router.push('/business/base/order');
 }
 
 // 注销登录
@@ -60,7 +64,7 @@ const toLogout = () => {
 		<p>我的收藏</p>
 		<img src="/assets/images/go.png" alt="我的收藏">
 	</div>
-	<div class="myboxcon">
+	<div class="myboxcon" @click="toOrder">
 		<p>我的订单</p>
 		<img src="/assets/images/go.png" alt="我的订单">
 	</div>
