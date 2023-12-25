@@ -4,7 +4,7 @@ const Type = [
 		name: 'TypeIndex',
 		component: () => import('@/views/product/product/Type.vue'),
 		meta: {
-			auth: true
+			title: '商品分类',
 		}
 	},
 ];
