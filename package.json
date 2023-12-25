@@ -12,13 +12,13 @@
     "@vant/area-data": "^1.5.1",
     "axios": "^1.6.2",
     "pinia": "^2.1.7",
-    "vant": "^4.8.0",
-    "vue": "^3.3.10",
+    "vant": "^4.8.1",
+    "vue": "^3.3.13",
     "vue-router": "^4.2.5",
     "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.1",
-    "vite": "^5.0.5"
+    "@vitejs/plugin-vue": "^4.5.2",
+    "vite": "^5.0.10"
   }
 }
