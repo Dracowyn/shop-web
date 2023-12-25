@@ -1,4 +1,5 @@
 import axios from "axios";
+import {showNotify} from "vant";
 
 let cancel, promiseArr = {};
 
@@ -67,6 +68,10 @@ axios.interceptors.response.use(response => {
 		err.message = "连接到服务器失败";
 	}
 	console.log(err.message);
+	showNotify({
+		type: 'danger',
+		message: err.message
+	});
 	return Promise.resolve(err.response);
 });
 
