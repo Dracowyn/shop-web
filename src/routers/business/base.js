@@ -49,6 +49,14 @@ const Base = [
 			auth: true
 		}
 	},
+	{
+		path: 'base/record',
+		name: 'BaseRecord',
+		component: () => import('@/views/business/base/Record.vue'),
+		meta: {
+			auth: true
+		}
+	}
 ];
 
 export default Base;

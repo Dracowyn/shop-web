@@ -25,6 +25,11 @@ const toOrder = () => {
 	proxy.$router.push('/business/base/order');
 }
 
+const toRecord = () => {
+	proxy.$router.push('/business/base/record');
+
+}
+
 // 注销登录
 const toLogout = () => {
 	proxy.$showConfirmDialog({
@@ -68,7 +73,7 @@ const toLogout = () => {
 		<p>我的订单</p>
 		<img src="/assets/images/go.png" alt="我的订单">
 	</div>
-	<div class="myboxcon">
+	<div class="myboxcon" @click="toRecord">
 		<p>消费记录</p>
 		<img src="/assets/images/go.png" alt="消费记录">
 	</div>
