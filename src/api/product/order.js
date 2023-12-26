@@ -36,7 +36,13 @@ const Order = {
 			url: '/product/order/rejected',
 			params: data
 		});
-	}
+	},
+	OrderConfirm(data = {}) {
+		return POST({
+			url: '/product/order/confirm',
+			params: data
+		});
+	},
 }
 
 export default Order;

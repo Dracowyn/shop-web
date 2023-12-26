@@ -123,6 +123,7 @@ const toDetail = (code) => {
 	})
 }
 
+// 支付订单
 const toPay = async (code) => {
 	proxy.$showConfirmDialog({
 		title: "提示",
@@ -155,6 +156,7 @@ const toPay = async (code) => {
 	})
 }
 
+// 取消订单
 const toCancel = async (code) => {
 	proxy.$showConfirmDialog({
 		title: "提示",
@@ -187,6 +189,7 @@ const toCancel = async (code) => {
 	})
 }
 
+// 申请退货
 const toRejected = async (code) => {
 	proxy.$showConfirmDialog({
 		title: "提示",
@@ -249,6 +252,39 @@ const toRejected = async (code) => {
 			}
 		})
 
+	}).catch(() => {
+	})
+}
+
+// 确认收货
+const toConfirm = async (code) => {
+	proxy.$showConfirmDialog({
+		title: "提示",
+		message: "是否确认收货？",
+	}).then(async () => {
+		let data = {
+			busid: business.id,
+			orderid: code,
+		}
+
+		let result = await proxy.$api.OrderConfirm(data);
+
+		if (result.code === 0) {
+			proxy.$showNotify({
+				type: 'warning',
+				message: result.msg,
+				duration: 1500,
+			});
+		} else {
+			proxy.$showNotify({
+				type: 'success',
+				message: result.msg,
+				duration: 1500,
+				onClose: () => {
+					onRefresh();
+				}
+			});
+		}
 	}).catch(() => {
 	})
 }
@@ -346,7 +382,7 @@ const toRejected = async (code) => {
 									v-if="item.status === '2'"
 									size="mini"
 									type="success"
-									@click="toConfirmReceipt(item.code)"
+									@click="toConfirm(item.code)"
 									text="确认收货"
 								/>
 								<van-button
