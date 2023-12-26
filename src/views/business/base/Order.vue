@@ -123,8 +123,36 @@ const toDetail = (code) => {
 	})
 }
 
-const toPay = (code) => {
+const toPay = async (code) => {
+	proxy.$showConfirmDialog({
+		title: "提示",
+		message: "是否确认支付？",
+	}).then(async () => {
+		let data = {
+			busid: business.id,
+			orderid: code,
+		}
 
+		let result = await proxy.$api.OrderPay(data);
+
+		if (result.code === 0) {
+			proxy.$showNotify({
+				type: 'warning',
+				message: result.msg,
+				duration: 1500,
+			});
+		} else {
+			proxy.$showNotify({
+				type: 'success',
+				message: result.msg,
+				duration: 1500,
+				onClose: () => {
+					toDetail(code);
+				}
+			});
+		}
+	}).catch(() => {
+	})
 }
 
 </script>
@@ -192,56 +220,56 @@ const toPay = (code) => {
 									v-if="item.status === '0'"
 									size="mini"
 									type="success"
-									@click="toPay(item.id)"
+									@click="toPay(item.code)"
 									text="确认支付"
 								/>
 								<van-button
 									v-if="item.status === '3'"
 									size="mini"
 									type="success"
-									@click="toRate(item.id)"
+									@click="toRate(item.code)"
 									text="去评价"
 								/>
 								<van-button
 									v-if="item.expresscode"
 									size="mini"
 									type="warning"
-									@click="toExpressPage(item.id)"
+									@click="toExpressPage(item.code)"
 									text="物流信息"
 								/>
 								<van-button
 									v-if="item.status === '2'"
 									size="mini"
 									type="success"
-									@click="toConfirmReceipt(item.id)"
+									@click="toConfirmReceipt(item.code)"
 									text="确认收货"
 								/>
 								<van-button
 									v-if="item.status === '4'"
 									size="mini"
 									type="success"
-									@click="toEvaluationPage(item.id)"
+									@click="toEvaluationPage(item.code)"
 									text="评价详情"
 								/>
 								<van-button
 									v-if="item.status > 0 && item.status !== '4'"
 									size="mini"
 									type="danger"
-									@click="toRejected(item.id)"
+									@click="toRejected(item.code)"
 									text="申请退货"
 								/>
 								<van-button
 									v-if="item.status === '-3'"
 									size="mini"
 									type="danger"
-									@click="toRefundgoods(item.id)"
+									@click="toRefundgoods(item.code)"
 									text="待退货"
 								/>
 								<van-button
 									v-if="item.status < 0"
 									size="mini"
 									type="danger"
-									@click="toRefundgoods(item.id)"
+									@click="toRefundgoods(item.code)"
 									text="退货详情"
 								/>
 							</div>

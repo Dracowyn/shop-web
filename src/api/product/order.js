@@ -18,7 +18,13 @@ const Order = {
 			url: '/product/order/info',
 			params: data
 		});
-	}
+	},
+	OrderPay(data = {}) {
+		return POST({
+			url: '/product/order/pay',
+			params: data
+		});
+	},
 }
 
 export default Order;
