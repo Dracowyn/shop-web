@@ -30,6 +30,12 @@ const Order = {
 			url: '/product/order/cancel',
 			params: data
 		});
+	},
+	OrderRejected(data = {}) {
+		return POST({
+			url: '/product/order/rejected',
+			params: data
+		});
 	}
 }
 
