@@ -25,6 +25,12 @@ const Order = {
 			params: data
 		});
 	},
+	OrderCancel(data = {}) {
+		return POST({
+			url: '/product/order/cancel',
+			params: data
+		});
+	}
 }
 
 export default Order;

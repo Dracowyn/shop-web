@@ -155,6 +155,38 @@ const toPay = async (code) => {
 	})
 }
 
+const toCancel = async (code) => {
+	proxy.$showConfirmDialog({
+		title: "提示",
+		message: "是否确认取消订单？",
+	}).then(async () => {
+		let data = {
+			busid: business.id,
+			orderid: code,
+		}
+
+		let result = await proxy.$api.OrderCancel(data);
+
+		if (result.code === 0) {
+			proxy.$showNotify({
+				type: 'warning',
+				message: result.msg,
+				duration: 1500,
+			});
+		} else {
+			proxy.$showNotify({
+				type: 'success',
+				message: result.msg,
+				duration: 1500,
+				onClose: () => {
+					onRefresh();
+				}
+			});
+		}
+	}).catch(() => {
+	})
+}
+
 </script>
 
 <template>
@@ -190,7 +222,7 @@ const toPay = async (code) => {
 								<span>订单号：{{ item.code }}</span>
 							</div>
 							<div class="right">
-								<span>{{ item.status_name }}</span>
+								<span>订单状态：{{ item.status_text }}</span>
 							</div>
 						</div>
 						<div class="content">
@@ -208,7 +240,7 @@ const toPay = async (code) => {
 							</van-card>
 						</div>
 						<div class="footer">
-							<div class="date">{{ item.createtime_text }}</div>
+							<div class="date">下单时间：{{ item.createtime_text }}</div>
 							<div class="btn">
 								<van-button
 									size="mini"
@@ -222,6 +254,13 @@ const toPay = async (code) => {
 									type="success"
 									@click="toPay(item.code)"
 									text="确认支付"
+								/>
+								<van-button
+									v-if="item.status === '0'"
+									size="mini"
+									type="warning"
+									@click="toCancel(item.code)"
+									text="取消订单"
 								/>
 								<van-button
 									v-if="item.status === '3'"
