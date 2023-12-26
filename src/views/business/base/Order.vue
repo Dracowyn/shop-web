@@ -191,68 +191,11 @@ const toCancel = async (code) => {
 
 // 申请退货
 const toRejected = async (code) => {
-	proxy.$showConfirmDialog({
-		title: "提示",
-		message: "是否确认申请退货？",
-	}).then(async () => {
-		proxy.$showConfirmDialog({
-			title: "退款方式",
-			message: "请选择退款方式，刷新页面取消操作",
-			confirmButtonText: "退货退款",
-			cancelButtonText: "仅退款",
-		}).then(async () => {
-			let data = {
-				busid: business.id,
-				orderid: code,
-				type: 2,
-			}
-
-			let result = await proxy.$api.OrderRejected(data);
-
-			if (result.code === 0) {
-				proxy.$showNotify({
-					type: 'warning',
-					message: result.msg,
-					duration: 1500,
-				});
-			} else {
-				proxy.$showNotify({
-					type: 'success',
-					message: result.msg,
-					duration: 1500,
-					onClose: () => {
-						onRefresh();
-					}
-				});
-			}
-		}).catch(async () => {
-			let data = {
-				busid: business.id,
-				orderid: code,
-				type: 1,
-			}
-
-			let result = await proxy.$api.OrderRejected(data);
-
-			if (result.code === 0) {
-				proxy.$showNotify({
-					type: 'warning',
-					message: result.msg,
-					duration: 1500,
-				});
-			} else {
-				proxy.$showNotify({
-					type: 'success',
-					message: result.msg,
-					duration: 1500,
-					onClose: () => {
-						onRefresh();
-					}
-				});
-			}
-		})
-
-	}).catch(() => {
+	proxy.$router.push({
+		path: "/product/order/refund",
+		query: {
+			orderid: code
+		}
 	})
 }
 

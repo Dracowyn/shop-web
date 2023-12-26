@@ -8,6 +8,15 @@ const Order = [
 			auth: true
 		}
 	},
+	{
+		path: 'order/refund',
+		name: 'OrderRefund',
+		component: () => import('@/views/product/order/Refund.vue'),
+		meta: {
+			title: '申请退款',
+			auth: true
+		}
+	}
 ]
 
 export default Order;
