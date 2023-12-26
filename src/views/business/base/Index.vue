@@ -48,7 +48,8 @@ const toLogout = () => {
 		<div class="L"><img :src="business.avatar" alt="avatar"/></div>
 		<div class="C">
 			<div class="tit">{{ business.nickname ? business.nickname : business.mobile_text }}</div>
-			<div class="sub" v-if="business.email">{{ business.email }}</div>
+			<div class="sub" v-if="business.email">邮箱：{{ business.email }}</div>
+			<div class="sub" v-if="business.money">余额：￥{{ business.money }}</div>
 		</div>
 	</div>
 	<div class="clear"></div>
