@@ -12,6 +12,12 @@ const Order = {
 			url: '/product/order/index',
 			params: data
 		});
+	},
+	OrderInfo(data = {}) {
+		return POST({
+			url: '/product/order/info',
+			params: data
+		});
 	}
 }
 

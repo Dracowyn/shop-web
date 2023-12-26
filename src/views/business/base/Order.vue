@@ -114,6 +114,19 @@ const onBack = () => {
 	proxy.$router.back();
 }
 
+const toDetail = (code) => {
+	proxy.$router.push({
+		path: "/product/order/detail",
+		query: {
+			orderid: code
+		}
+	})
+}
+
+const toPay = (code) => {
+
+}
+
 </script>
 
 <template>
@@ -172,7 +185,7 @@ const onBack = () => {
 								<van-button
 									size="mini"
 									type="primary"
-									@click="toDetail(item.id)"
+									@click="toDetail(item.code)"
 									text="订单详情"
 								/>
 								<van-button
