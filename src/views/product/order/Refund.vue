@@ -56,7 +56,7 @@ const onSubmit = async (code) => {
 	}).then(async () => {
 		let data = {
 			busid: business.id,
-			orderid: code,
+			orderid: orderId.value,
 			type: refundType.value,
 			reason: refundReason.value,
 		}
@@ -138,23 +138,34 @@ const onRefresh = () => {
 		<p v-if="orderData.remark">订单备注：{{ orderData.remark }}</p>
 	</div>
 
-	<van-form v-if="orderData.status !== '-3'">
+	<van-form
+		v-if="orderData.status !== '-3' && orderData.status !== '-2' && orderData.status !== '-1'"
+		@submit="onSubmit"
+	>
 		<van-field
 			v-model="refundReason"
 			rows="1"
+			autosize
 			label="退款原因"
 			placeholder="请输入退款原因"
 		/>
 		<!--申请退款选项-->
-		<van-radio-group v-model="refundType" direction="horizontal">
-			<van-radio name="1">仅退款</van-radio>
-			<van-radio name="2">退货退款</van-radio>
-		</van-radio-group>
+		<van-field name="refundType" label="退款选项">
+			<template #input>
+				<van-radio-group v-model="refundType" direction="horizontal">
+					<van-radio name="1">仅退款</van-radio>
+					<van-radio name="2">退货退款</van-radio>
+				</van-radio-group>
+			</template>
+		</van-field>
+
 		<!--提交申请-->
 		<van-button
 			type="primary"
-			@click="onSubmit"
 			text="提交申请"
+			round
+			block
+			native-type="submit"
 		/>
 	</van-form>
 </template>
