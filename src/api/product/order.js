@@ -43,6 +43,12 @@ const Order = {
 			params: data
 		});
 	},
+	OrderEvaluation(data = {}) {
+		return POST({
+			url: '/product/order/evaluation',
+			params: data
+		});
+	},
 }
 
 export default Order;

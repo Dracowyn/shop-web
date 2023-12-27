@@ -232,6 +232,15 @@ const toConfirm = async (code) => {
 	})
 }
 
+const toRate = (code) => {
+	proxy.$router.push({
+		path: "/product/order/evaluation",
+		query: {
+			orderid: code
+		}
+	})
+}
+
 </script>
 
 <template>

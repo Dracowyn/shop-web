@@ -16,6 +16,15 @@ const Order = [
 			title: '申请退款',
 			auth: true
 		}
+	},
+	{
+		path: 'order/evaluation',
+		name: 'OrderEvaluation',
+		component: () => import('@/views/product/order/Evaluation.vue'),
+		meta: {
+			title: '评价',
+			auth: true
+		}
 	}
 ]
 
