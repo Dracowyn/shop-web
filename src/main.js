@@ -17,6 +17,9 @@ import VueCookies from 'vue3-cookies'
 // 引入utils
 import Utils from "@/utils/utils.js";
 
+const VITE_APP_SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
+console.log(VITE_APP_SERVER_URL)
+
 const app = createApp(App)
 	.use(Router)
 	.use(Vant)
