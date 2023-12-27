@@ -4,7 +4,8 @@ const Address = [
 		name:'AddressIndex',
 		component:()=>import('@/views/business/address/index.vue'),
 		meta: {
-			auth:true
+			auth:true,
+			title:'收货地址',
 		}
 	},
 	{
@@ -12,7 +13,8 @@ const Address = [
 		name: 'AddressAdd',
 		component: () => import('@/views/business/address/add.vue'),
 		meta: {
-			auth: true
+			auth: true,
+			title: '添加收货地址',
 		}
 	},
 	{
@@ -20,7 +22,8 @@ const Address = [
 		name: 'AddressEdit',
 		component: () => import('@/views/business/address/edit.vue'),
 		meta: {
-			auth: true
+			auth: true,
+			title: '修改收货地址',
 		}
 	}
 ]

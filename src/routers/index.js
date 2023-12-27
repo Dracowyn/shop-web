@@ -21,9 +21,35 @@ RouterList.push({
 	path: "/",
 	name: "Home",
 	component: Home,
+	meta: {
+		title: "首页",
+		keywords: "首页",
+		description: "首页",
+	}
 });
 
-export default createRouter({
+// 创建路由
+const router = createRouter({
 	history: createWebHistory(),
 	routes: RouterList,
 });
+
+// 设置文档标题
+router.beforeEach((to, from, next) => {
+	// 如果路由有 meta 并且 meta.title 存在，则设置文档标题
+	if (to.meta) {
+		if (to.meta.title) {
+			document.title = to.meta.title;
+		}
+		if (to.meta.keywords) {
+			document.querySelector('meta[name="keywords"]').setAttribute("content", to.meta.keywords)
+		}
+		if (to.meta.description) {
+			document.querySelector('meta[name="description"]').setAttribute("content", to.meta.description)
+		}
+	}
+	next();
+});
+
+// 导出路由
+export default router;
