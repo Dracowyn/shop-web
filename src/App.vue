@@ -3,5 +3,6 @@
 </template>
 
 <style>
-@import url('/assets/css/style.css');
+@import 'vant/lib/index.css';
+@import '/assets/css/style.css';
 </style>

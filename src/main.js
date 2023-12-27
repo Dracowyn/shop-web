@@ -7,8 +7,7 @@ import Router from './routers/index';
 // 引入VantUI
 import Vant from 'vant';
 
-// 引入组件样式
-import 'vant/lib/index.css';
+// 引入API
 import Api from "@/api/index.js";
 
 // 引入vue-cookies
