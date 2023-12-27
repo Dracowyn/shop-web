@@ -27,5 +27,9 @@ export default ({mode}) => {
 				vue: "vue/dist/vue.esm-bundler.js",
 			},
 		},
+		esbuild: {
+			// 去除console和debugger
+			drop: ['console', 'debugger'],
+		}
 	});
 };
