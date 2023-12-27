@@ -135,6 +135,7 @@ const onRefresh = () => {
 	<div class="indent-details-box3">
 		<p>订单编号:{{ orderId }}</p>
 		<p>下单时间:{{ orderData.createtime_text }}</p>
+		<p>订单状态：{{ orderData.status_text }}</p>
 		<p v-if="orderData.remark">订单备注：{{ orderData.remark }}</p>
 	</div>
 

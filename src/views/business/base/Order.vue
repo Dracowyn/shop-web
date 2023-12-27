@@ -353,7 +353,7 @@ const toConfirm = async (code) => {
 									v-if="item.status < 0"
 									size="mini"
 									type="danger"
-									@click="toRefundgoods(item.code)"
+									@click="toRejected(item.code)"
 									text="退货详情"
 								/>
 							</div>
