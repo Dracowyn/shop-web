@@ -54,16 +54,26 @@ const onSubmit = async () => {
 		title: "提示",
 		message: "是否确认提交评论？",
 	}).then(async () => {
-		let data = {
-			busid: business.id,
-			orderid: orderId.value,
-			content: evaluationContent.value,
-			score: evaluationStar.value,
-			images: evaluationImages.value,
-		}
+		// 创建 FormData 对象
+		let formData = new FormData();
 
-		let result = await proxy.$api.OrderEvaluation(data);
+		// 遍历 evaluationImages 数组并添加每个文件到 formData
+		evaluationImages.value.forEach((image, index) => {
+			if (image.file) {
+				formData.append(`images[${index}]`, image.file);
+			}
+		});
 
+		// 添加其他表单数据
+		formData.append('busid', business.id);
+		formData.append('orderid', orderId.value);
+		formData.append('content', evaluationContent.value);
+		formData.append('score', evaluationStar.value);
+
+		// 发送请求
+		let result = await proxy.$api.OrderEvaluation(formData);
+
+		// 处理响应
 		if (result.code === 1) {
 			proxy.$showNotify({
 				type: 'success',
@@ -72,13 +82,16 @@ const onSubmit = async () => {
 				onClose: () => {
 					proxy.$router.back();
 				}
-			})
+			});
 		} else {
 			proxy.$showNotify({
 				type: 'warning',
 				message: result.msg,
 				duration: 1500,
-			})
+				onClose: () => {
+					proxy.$router.back();
+				}
+			});
 		}
 	}).catch(() => {
 	})
@@ -129,8 +142,7 @@ const onSubmit = async () => {
 		<p>订单状态：{{ orderData.status_text }}</p>
 		<p v-if="orderData.remark">订单备注：{{ orderData.remark }}</p>
 	</div>
-	<van-form @submit="onSubmit">
-
+	<van-form @submit="onSubmit" v-if="orderData.status !== '4'">
 		<van-cell-group>
 			<van-field
 				v-model="evaluationContent"
