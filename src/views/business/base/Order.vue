@@ -341,7 +341,7 @@ const toRate = (code) => {
 									v-if="item.status === '4'"
 									size="mini"
 									type="success"
-									@click="toEvaluationPage(item.code)"
+									@click="toRate(item.code)"
 									text="评价详情"
 								/>
 								<van-button

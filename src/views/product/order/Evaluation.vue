@@ -29,6 +29,19 @@ const getOrderData = async () => {
 	if (result.code === 1) {
 		orderData.value = result.data;
 		productList.value = result.data.order_product;
+		evaluationContent.value = result.data.comment.content;
+		evaluationStar.value = result.data.comment.score;
+		let images = result.data.comment.imagelist;
+		if (images.length > 0) {
+			for (let i = 0; i < images.length; i++) {
+				evaluationImages.value.push({
+					url: images[i],
+					isImage: true,
+					isUploaded: true,
+					file: null,
+				});
+			}
+		}
 	} else {
 		proxy.$showNotify({
 			type: 'warning',
@@ -168,12 +181,35 @@ const onSubmit = async () => {
 			</van-button>
 		</div>
 	</van-form>
+	<van-form v-else>
+		<van-cell-group>
+			<van-field
+				v-model="evaluationContent"
+				rows="2"
+				label="评价内容"
+				type="textarea"
+				readonly
+			/>
+			<van-field name="rate" label="评分" readonly>
+				<template #input>
+					<van-rate v-model="evaluationStar" readonly/>
+				</template>
+			</van-field>
+			<van-field name="uploader" label="评价图片" readonly v-if="evaluationImages.length > 0">
+				<template #input>
+					<van-uploader v-model="evaluationImages" readonly/>
+				</template>
+			</van-field>
+		</van-cell-group>
+	</van-form>
+
 
 </template>
 
 <style>
 @import "/assets/css/indent-details.css";
-.indent-details-box2,.indent-details-box3 {
+
+.indent-details-box2, .indent-details-box3 {
 	float: unset;
 }
 </style>
