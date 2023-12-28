@@ -30,6 +30,7 @@ export default ({mode}) => {
 		esbuild: {
 			// 去除console和debugger
 			drop: ['console', 'debugger'],
-		}
+		},
+		base: env.VITE_APP_CDN_URL
 	});
 };
