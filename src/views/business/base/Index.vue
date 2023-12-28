@@ -56,35 +56,35 @@ const toLogout = () => {
 	<div class="allkbox"></div>
 	<div class="myboxcon" @click="toProfile">
 		<p>基本资料</p>
-		<img src="/assets/images/go.png" alt="基本资料">
+		<img :src="goImageUrl" alt="基本资料">
 	</div>
 	<div class="myboxcon" @click="toEmail">
 		<p>邮箱认证</p>
-		<img src="/assets/images/go.png" alt="邮箱认证">
+		<img :src="goImageUrl" alt="邮箱认证">
 	</div>
 	<div class="myboxcon" @click="toAddress">
 		<p>我的收货地址</p>
-		<img src="/assets/images/go.png" alt="我的收货地址">
+		<img :src="goImageUrl" alt="我的收货地址">
 	</div>
 	<div class="myboxcon" @click="toCollection">
 		<p>我的收藏</p>
-		<img src="/assets/images/go.png" alt="我的收藏">
+		<img :src="goImageUrl" alt="我的收藏">
 	</div>
 	<div class="myboxcon" @click="toOrder">
 		<p>我的订单</p>
-		<img src="/assets/images/go.png" alt="我的订单">
+		<img :src="goImageUrl" alt="我的订单">
 	</div>
 	<div class="myboxcon" @click="toRecord">
 		<p>消费记录</p>
-		<img src="/assets/images/go.png" alt="消费记录">
+		<img :src="goImageUrl" alt="消费记录">
 	</div>
 	<div class="myboxcon">
 		<p>充值记录</p>
-		<img src="/assets/images/go.png" alt="充值记录">
+		<img :src="goImageUrl" alt="充值记录">
 	</div>
 	<div class="myboxcon" @click="toLogout">
 		<p>注销</p>
-		<img src="/assets/images/go.png" alt="注销登录">
+		<img :src="goImageUrl" alt="注销登录">
 	</div>
 
 	<div class="clear"></div>
@@ -96,3 +96,14 @@ const toLogout = () => {
 <style>
 
 </style>
+
+<script>
+const VITE_APP_CDN_URL = import.meta.env.VITE_APP_CDN_URL;
+export default {
+	computed: {
+		goImageUrl() {
+			return VITE_APP_CDN_URL + '/assets/images/go.png';
+		}
+	}
+};
+</script>

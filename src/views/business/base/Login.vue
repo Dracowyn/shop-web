@@ -1,6 +1,7 @@
 <script setup>
 import {getCurrentInstance, ref} from 'vue';
 import {showNotify} from "vant";
+
 const {proxy} = getCurrentInstance();
 
 // 定义变量
@@ -67,11 +68,11 @@ const onLogin = async () => {
 
 <template>
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('/assets/images/img-01.jpg');">
+		<div class="container-login100" :style="backgroundStyle">
 			<div class="wrap-login100 p-t-190 p-b-30">
 				<van-form class="login100-form validate-form" @submit="onLogin">
 					<div class="login100-form-avatar">
-						<img src="/assets/images/avatar-01.jpg" alt="AVATAR">
+						<img :src="avatarUrl" alt="AVATAR">
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">Hello</span>
@@ -114,3 +115,19 @@ const onLogin = async () => {
 @import url('/assets/css/util.css');
 @import url('/assets/css/main.css');
 </style>
+
+<script>
+const VITE_APP_CDN_URL = import.meta.env.VITE_APP_CDN_URL;
+export default {
+	computed: {
+		backgroundStyle() {
+			return {
+				backgroundImage: 'url(' + VITE_APP_CDN_URL + '/assets/images/img-01.jpg)'
+			};
+		},
+		avatarUrl() {
+			return VITE_APP_CDN_URL + '/assets/images/avatar-01.jpg';
+		}
+	}
+};
+</script>
