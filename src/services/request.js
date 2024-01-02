@@ -76,7 +76,7 @@ axios.interceptors.response.use(response => {
 });
 
 // 请求默认前缀
-axios.defaults.baseURL = '/shop';
+axios.defaults.baseURL = '/api';
 
 // 设置默认请求头 异步的请求方式
 axios.defaults.headers = {
