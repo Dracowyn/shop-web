@@ -81,7 +81,7 @@ const CartAdd = async () => {
 			message: '请先登录',
 			duration: 1500,
 			onClose: () => {
-				proxy.$router.push('/business/login');
+				proxy.$router.push('/business/base/login');
 			}
 		});
 		return;
@@ -119,7 +119,7 @@ const BuyNow = () => {
 			message: '请先登录',
 			duration: 1500,
 			onClose: () => {
-				proxy.$router.push('/business/login');
+				proxy.$router.push('/business/base/login');
 			}
 		});
 		return;
