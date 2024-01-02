@@ -13,10 +13,10 @@ export default ({mode}) => {
 		// ...其他配置
 		server: {
 			proxy: {
-				"/shop": {
+				"/api": {
 					target: env.VITE_APP_SERVER_URL,
 					changeOrigin: true,
-					rewrite: (path) => path.replace(/^\/shop/, ""),
+					rewrite: (path) => path.replace(/^\/api/, ""),
 				},
 			},
 		},
