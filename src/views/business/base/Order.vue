@@ -123,6 +123,15 @@ const toDetail = (code) => {
 	})
 }
 
+const toExpressPage = (code) => {
+	proxy.$router.push({
+		path: "/product/order/express",
+		query: {
+			orderid: code
+		}
+	})
+}
+
 // 支付订单
 const toPay = async (code) => {
 	proxy.$showConfirmDialog({

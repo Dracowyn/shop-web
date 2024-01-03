@@ -49,6 +49,12 @@ const Order = {
 			params: data
 		});
 	},
+	OrderExpress(data = {}) {
+		return POST({
+			url: '/product/order/express',
+			params: data
+		});
+	}
 }
 
 export default Order;

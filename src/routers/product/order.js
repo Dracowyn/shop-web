@@ -25,6 +25,15 @@ const Order = [
 			title: '评价',
 			auth: true
 		}
+	},
+	{
+		path: 'order/express',
+		name: 'OrderExpress',
+		component: () => import('@/views/product/order/Express.vue'),
+		meta: {
+			title: '物流信息',
+			auth: true
+		}
 	}
 ]
 
