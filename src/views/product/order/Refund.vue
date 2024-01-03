@@ -173,4 +173,7 @@ const onRefresh = () => {
 
 <style>
 @import "/assets/css/indent-details.css";
+.van-cell-group {
+	background-image: unset;
+}
 </style>
