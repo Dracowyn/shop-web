@@ -29,6 +29,7 @@ const onRefresh = () => {
 
 // 上拉加载
 const onLoad = async () => {
+	console.log("onLoad");
 	if (!refreshing.value && list.value.length < listCount.value) {
 		page.value = page.value + 1;
 	}
@@ -76,6 +77,8 @@ const getTypeProductData = async () => {
 onMounted(async () => {
 	// 首先获取类型数据
 	await getTypeData();
+
+	await onRefresh();
 });
 
 const getTypeData = async () => {
@@ -124,7 +127,6 @@ const onClickNav = (index) => {
 					v-model="loading"
 					:finished="finished"
 					finished-text="没有更多了"
-					@load="onLoad"
 				>
 					<div class="aui-flex-links">
 						<router-link
