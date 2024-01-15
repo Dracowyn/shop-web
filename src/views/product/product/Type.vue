@@ -45,6 +45,10 @@ const onLoad = async () => {
 
 // 获取数据方法
 const getTypeProductData = async () => {
+	if (typeId.value === 0) {
+		return;
+	}
+
 	let data = {
 		typeid: typeId.value,
 		page: page.value,
@@ -69,9 +73,9 @@ const getTypeProductData = async () => {
 	}
 }
 
-onMounted(() => {
-	getTypeData();
-	getTypeProductData();
+onMounted(async () => {
+	// 首先获取类型数据
+	await getTypeData();
 });
 
 const getTypeData = async () => {
@@ -85,7 +89,9 @@ const getTypeData = async () => {
 	}
 	typeList.value = TypeData;
 	// 使activeIndex设置为第一个ID
-	typeId.value = typeList.value[0].id;
+	if (TypeData.length > 0) {
+		typeId.value = TypeData[0].id;
+	}
 }
 
 //
